@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -25,20 +24,18 @@ public class SecurityConfig {
     @Value("${eureka.password}")
     private String password;
 
+
+//    deprecated method
 //    @Override
 //    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 //        authenticationManagerBuilder.inMemoryAuthentication()
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+//                .passwordEncoder(NoOpPasswordEncoder.getInstance())       //no password encoder is for demo purpose
 //                .withUser(username).password(password)
 //                .authorities("USER");
 //    }
 
     @Bean
     public InMemoryUserDetailsManager userDetailsManager(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-//        authenticationManagerBuilder.inMemoryAuthentication()
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .withUser(username).password(password)
-//                .authorities("USER");
 
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username(username)
@@ -49,7 +46,7 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user);
     }
 
-
+//    deprecated method
 //    @Override
 //    public void configure(HttpSecurity httpSecurity) throws Exception {
 //        httpSecurity.csrf(csrf -> csrf.disable())
